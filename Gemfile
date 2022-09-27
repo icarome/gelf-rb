@@ -1,5 +1,5 @@
 source "https://rubygems.org"
-
+gem 'socketry'
 group :development do
   gem "shoulda", "~> 2.11.3"
   gem "jeweler", "~> 2.1.1"
