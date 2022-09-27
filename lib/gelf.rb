@@ -2,7 +2,7 @@ require 'json'
 require 'socket'
 require 'zlib'
 require 'digest/md5'
-require "socketry"
+require 'socketry'
 
 module GELF
   SPEC_VERSION = '1.0'

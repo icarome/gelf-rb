@@ -13,8 +13,9 @@ module GELF
 
         host, port = @addresses[idx]
         set_address_index((idx + 1) % @addresses.length)
+        socket = socker.connect(host, port)
         datagrams.each do |datagram|
-          socket.send(datagram, host, port)
+          socket.send(datagram)
         end
       end
 
