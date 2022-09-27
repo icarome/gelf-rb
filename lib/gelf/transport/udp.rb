@@ -14,7 +14,7 @@ module GELF
         host, port = @addresses[idx]
         set_address_index((idx + 1) % @addresses.length)
         datagrams.each do |datagram|
-          socket.send(datagram, 0, host, port)
+          socket.send(datagram, host, port)
         end
       end
 
@@ -26,7 +26,7 @@ module GELF
       private
 
       def get_socket
-        Thread.current[:gelf_udp_socket] ||= UDPSocket.open
+        Thread.current[:gelf_udp_socket] ||= Socketry::UDP::Socket
       end
 
       def get_address_index
