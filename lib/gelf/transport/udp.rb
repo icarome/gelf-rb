@@ -8,19 +8,16 @@ module GELF
       end
 
       def send_datagrams(datagrams)
-        Timeout::timeout(10) do
-          socket = get_socket
-          idx = get_address_index
+        socket = get_socket
+        idx = get_address_index
 
-          host, port = @addresses[idx]
-          set_address_index((idx + 1) % @addresses.length)
-          socket = socket.connect(host, port)
-          datagrams.each do |datagram|
-            socket.send(datagram)
-          end
+        host, port = @addresses[idx]
+        set_address_index((idx + 1) % @addresses.length)
+        host = Socketry::Resolver::DEFAULT_RESOLVER.resolve(host, :timeout=>5).to_s
+        socket = socket.connect(host, port)
+        datagrams.each do |datagram|
+          socket.send(datagram)
         end
-      rescue
-        return
       end
 
       def close
